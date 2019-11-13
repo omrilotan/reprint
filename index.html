@@ -51,7 +51,7 @@ input.addEventListener(
 	function({target: {value}}) {
 		const matches = clone.innerText && clone.innerText.toUpperCase() === value.toUpperCase();
 		document.body.classList.toggle('success', matches);
-		value && header && header.parentNode.removeChild(header) && (header = null);
+		value && header.parentNode && header.parentNode.removeChild(header);
 	}
 );
 		</script>

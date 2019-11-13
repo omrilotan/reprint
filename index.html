@@ -15,16 +15,24 @@ body{font:100 100%/1.4 -apple-system,"BlinkMacSystemFont","Helvetica Neue","Helv
 input,div{font-size:10em;font-weight:400;text-transform:uppercase}
 @media(orientation:landscape){input,div{font-size:25vh}}
 @media(orientation:portrait){input,div{font-size:25vw}}
-header{font-size:2em;font-weight:400;text-transform:uppercase;text-align:center;padding:1em}
+header{font-size:1.5em;font-weight:400;text-transform:uppercase;padding:1em;display:flex;align-items:center}
+header,section{transition:transform .3s cubic-bezier(.5,0,.5,1);}
+.see{transform:translateY(-100%)}
 div,form,input,section{position:absolute;left:0;top:0;width:100%;height:100%;display:flex;align-items:center}
 div{opacity:.2}
-section{transition:transform .3s cubic-bezier(.5,0,.5,1);transform:translateY(100%);align-items:flex-end;justify-content:center;}
+section{transform:translateY(100%);align-items:flex-end;justify-content:center;}
 .success section{transform:translateY(0)}
 video{max-width:100%}
 		</style>
 	</head>
 	<body>
-		<header>type a word and match it</header>
+		<header>
+			<ol>
+				<li>Type word, Hit enter</li>
+				<li>Make a kid type it</li>
+				<li>Double enter to repeat</li>
+			</ol>
+		</header>
 		<section><video src="https://media.giphy.com/media/2Hv8mUOH5WLQc/giphy.mp4" poster="https://media.giphy.com/media/2Hv8mUOH5WLQc/giphy_s.gif" autoplay="true" loop="true"></video></section>
 		<div></div>
 		<form><input placeholder="…"></form>
@@ -56,7 +64,7 @@ input.addEventListener(
 		document.body.classList.toggle('success', matches);
 		value && matches ? video.play() : video.pause();
 		value && matches && audio.play();
-		value && header.parentNode && header.parentNode.removeChild(header);
+		header.classList.toggle('see', value || clone.innerText);
 	}
 );
 		</script>

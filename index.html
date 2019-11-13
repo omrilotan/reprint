@@ -9,8 +9,8 @@
 		<link rel="license" href="https://raw.githubusercontent.com/omrilotan/reprint/master/LICENSE">
 		<style>
 *{margin:0;padding:0;outline:0;border:0;background:transparent}
-html{width:100%;height:100%;background:white;color:black}
-body{width:90%;height:100%;margin:0 5%;position:relative}
+html{width:100vw;height:100vh;background:white;color:black}
+body{width:90vw;height:100vh;margin:0 5vw;position:relative}
 body{font:100 100%/1.4 -apple-system,"BlinkMacSystemFont","Helvetica Neue","Helvetica","Lucida Grande","Arial",sans-serif}
 input,div{font-size:10em;font-weight:400;text-transform:uppercase}
 @media(orientation:landscape){input,div{font-size:25vh}}
@@ -31,6 +31,7 @@ video{position:absolute;top:100%;left:50%;margin-left:-240px;transition:transfor
 const clone = document.querySelector('div');
 const input = document.querySelector('input');
 const video = document.querySelector('video');
+const audio = new Audio('cheer.mp3');
 const header = document.querySelector('header');
 document.querySelector('form').addEventListener(
 	'submit',
@@ -53,6 +54,7 @@ input.addEventListener(
 		const matches = clone.innerText && clone.innerText.toUpperCase() === value.toUpperCase();
 		document.body.classList.toggle('success', matches);
 		value && matches ? video.play() : video.pause();
+		value && matches && audio.play();
 		value && header.parentNode && header.parentNode.removeChild(header);
 	}
 );

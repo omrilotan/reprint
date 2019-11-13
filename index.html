@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<title>reprint</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+		<link rel="author" href="https://github.com/omrilotan/reprint">
+		<link rel="license" href="https://raw.githubusercontent.com/omrilotan/reprint/master/LICENSE">
+		<style>
+*{margin:0;padding:0;outline:0;border:0;background:transparent}
+html{width:100%;height:100%;background:white;color:black}
+body{width:90%;height:100%;margin:0 5%;position:relative}
+body{font:100 100%/1.4 -apple-system,"BlinkMacSystemFont","Helvetica Neue","Helvetica","Lucida Grande","Arial",sans-serif}
+input,div{font-size:10em;font-weight:400;text-transform:uppercase}
+@media(orientation:landscape){input,div{font-size:25vh}}
+@media(orientation:portrait){input,div{font-size:25vw}}
+header{font-size:2em;font-weight:400;text-transform:uppercase;text-align:center;padding:1em}
+div,form,input{position:absolute;left:0;top:0;width:100%;height:100%;display:flex;align-items:center}
+div{opacity:.2}
+video{position:absolute;top:100%;left:50%;margin-left:-240px;transition:transform .3s cubic-bezier(.5,0,.5,1);mix-blend-mode:overlay}
+.success video{transform:translateY(-270px)}
+		</style>
+	</head>
+	<body>
+		<header>type a word and match it</header>
+		<div></div>
+		<form><input placeholder="…"></form>
+		<video src="monsters.mp4" poster="monsters.gif" autoplay="true" loop="true"></video>
+		<script>
+const clone = document.querySelector('div');
+const input = document.querySelector('input');
+const video = document.querySelector('video');
+const header = document.querySelector('header');
+document.querySelector('form').addEventListener(
+	'submit',
+	function(event) {
+		event.preventDefault();
+		const [ input ] = event.target;
+		clone.innerText = input.value;
+		input.placeholder = input.value === '' ? '…' : '';
+		input.value = '';
+	}
+);
+input.focus();
+input.addEventListener(
+	'blur',
+	({target}) => target.focus()
+);
+input.addEventListener(
+	'keyup',
+	function({target: {value}}) {
+		const matches = clone.innerText && clone.innerText.toUpperCase() === value.toUpperCase();
+		document.body.classList.toggle('success', matches);
+		value && matches ? video.play() : video.pause();
+		value && header && header.parentNode.removeChild(header) && (header = null);
+	}
+);
+		</script>
+	</body>
+</html>

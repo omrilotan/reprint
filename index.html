@@ -42,6 +42,8 @@ const input = document.querySelector('input');
 const video = document.querySelector('video');
 const audio = new Audio('cheer.mp3');
 const header = document.querySelector('header');
+const BACKSPACE = 'Backspace';
+
 document.querySelector('form').addEventListener(
 	'submit',
 	function(event) {
@@ -59,8 +61,9 @@ input.addEventListener(
 );
 input.addEventListener(
 	'keyup',
-	function({target: {value}}) {
-		const matches = clone.innerText && clone.innerText.toUpperCase() === value.toUpperCase();
+	function({target: {value}, code, keyCode}) {
+
+		const matches = clone.innerText && clone.innerText.toUpperCase() === value.toUpperCase() && ![keyCode, code].includes(BACKSPACE);
 		document.body.classList.toggle('success', matches);
 		value && matches ? video.play() : video.pause();
 		value && matches && audio.play();
